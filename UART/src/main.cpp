@@ -59,10 +59,10 @@ void led2OnOff(){
 //to do : oscilating led
     if(led2ctrl==true){
         if(cnt<=5){
-            PORTD &= ~(1 << 7);
+            PORTD &= ~(1 << 7); //on
         }
         if(cnt>5){
-            PORTD &= ~(1 << 7);
+            PORTD |= (1 << 7);  //off
         }
         if(cnt==7)
             cnt=0;

@@ -23,8 +23,6 @@ void Uart::init() {
     UCSR0C = (3<<UCSZ00);
 
     // DO NOT CHANGE ALL BITS
-    /*10937 limita
-    7812 prag*/
 }
 
 void Uart::writeByte(const char& d) {

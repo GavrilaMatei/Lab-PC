@@ -27,8 +27,9 @@ void setup() {
     DDRD &= ~(1 << 2); 
     //leds
     DDRD |= (1 << 4);
-    DDRD |= (1 << 7);
-    PORTD &= ~(1 << 4); 
+    DDRB |= (1 << 1);
+    PORTB |= (1<<1);
+    PORTD &= ~(1 << 4); //led1on
 }
 void responseBack(const char* userMsg) {
     uart.writeString("You said: ");
@@ -39,9 +40,9 @@ void responseBack(const char* userMsg) {
 void buttonCheck(){
     unsigned char btn = PIND & (1 << 2); 
     if(btn != 0)
-        uart.writeString("Butonul e apasat");
+        uart.writeString("Butonul e apasat \n");
     else
-        uart.writeString("Butonul nu e apasat");
+        uart.writeString("Butonul nu e apasat \n");
 }
 
 void led1OnOff(){
@@ -58,15 +59,16 @@ void led1OnOff(){
 void led2OnOff(){
 //to do : oscilating led
     if(led2ctrl==true){
-        if(cnt<=5){
-            PORTD &= ~(1 << 7); //on
-        }
-        if(cnt>5){
-            PORTD |= (1 << 7);  //off
-        }
-        if(cnt==7)
-            cnt=0;
+        TCCR1A =(0b10<<0)|(0b11<<6);
+        TCCR1B =(0b11<<3)|(0b101<<0);   
+        ICR1 = 10937; //limita
+        OCR1A = 7812;  //prag
     }
+    else{
+        TCCR1A = 0;
+        TCCR1B = 0;
+    }
+        
 }
 
 void loop() {

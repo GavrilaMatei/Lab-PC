@@ -7,7 +7,7 @@
 // ADXL345 module
 // Bidirectional level shifter
 
-// Docs
+// Docs 
 // ADXL345 Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/adxl345.pdf
 
 #include "Arduino.h"
@@ -20,9 +20,6 @@
 I2cMaster wire;
 
 void setup() {
-    // initialize GDB stub
-    debug_init();
-
     wire.init();
 
     delay(500);

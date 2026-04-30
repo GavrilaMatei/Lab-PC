@@ -59,7 +59,6 @@ bool I2cMaster::writeAddrWrite(const char& addr) {
     // add write bit to addr {addr[6:0],r/w}
     _writeByte(addr<<1 );
     // check if ack received for addr
-
     return ((TWSR & (0xf8)) == 0x18);
 }
 
@@ -68,22 +67,22 @@ bool I2cMaster::writeAddrRead(const char& addr) {
     // add read bit to addr {addr[6:0],r/w}
     _writeByte(addr<<1 | 1<<0);
     // check if ack received for addr
-    return false;
+    return ((TWSR & (0xf8)) == 0x40);
 }
 
-bool I2cMaster::writeByte(const char& d, I2cResponse expectedResponse) {
+bool I2cMaster::writeByte(const char& d) {
     // TODO: 2. send byte on I2C
     // send byte
     _writeByte(d);
     // retrun if ack received
-    return false;
+    return ((TWSR & (0xf8)) == 0x28);
 }
 
-bool I2cMaster::readByte(char& d, I2cResponse expectedResponse) {
+bool I2cMaster::readByte(char& d) {
     // TODO: 2. read byte from I2C
     _readByte(d);
     // retrun if ack received
-    return false;
+    return ((TWSR & (0xf8)) == 0x50);
 }
 
 void I2cMaster::sendStop() {

@@ -1,8 +1,6 @@
 #ifndef I2C_MASTER_H
 #define I2C_MASTER_H
 
-#include <laboratory_types.h>
-
 /// @brief Implement high level functions for I2C protocol, in master mode, in ATmega328p
 class I2cMaster {
 protected:
@@ -12,7 +10,7 @@ protected:
 
     /// @brief Read one byte from I2C
     /// @param data The response byte will be in this variable
-    void _readByte(char& data);
+    void _readByte(char& data, bool ack);
 public:
     /// @brief This function enable and configure I2C peripheral. Also configure MCU pins
     void init();
@@ -40,7 +38,7 @@ public:
     /// @param d The response will be in this variable
     /// @param expectedResponse The expected response
     /// @return True if response is equal with expected response
-    bool readByte(char& d);
+    bool readByte(char& d , bool ack);
 //, I2cResponse expectedResponse = ACKNOWLEDGE
     /// @brief Send stop condition for I2C
     void sendStop();

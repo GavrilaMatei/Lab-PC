@@ -25,10 +25,13 @@ void I2cMaster::_writeByte(const char& data) {
     while (!(TWCR & (1<<TWINT)));
 }
 
-void I2cMaster::_readByte(char& data) {
+void I2cMaster::_readByte(char& data,bool ack) {
     // TODO: 2. read 1 byte from I2C
     // send command to read byte
-    TWCR = (1<<TWINT) |(1<<TWEN);
+    if(ack)
+        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
+    else
+        TWCR = (1<<TWINT) | (1<<TWEN);
     // wait for ack or nack
     while (!(TWCR & (1<<TWINT)));
     // read byte
@@ -78,9 +81,9 @@ bool I2cMaster::writeByte(const char& d) {
     return ((TWSR & (0xf8)) == 0x28);
 }
 
-bool I2cMaster::readByte(char& d) {
+bool I2cMaster::readByte(char& d , bool Ack) {
     // TODO: 2. read byte from I2C
-    _readByte(d);
+    _readByte(d,Ack);
     // retrun if ack received
     return ((TWSR & (0xf8)) == 0x50);
 }

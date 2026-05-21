@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <IAdxlTransportI2C.h>
 #include <I2cMaster.h>
-#include <Uart.h>
 
 #define ADX345_I2C_ADDR 0x53
 
@@ -19,6 +18,7 @@ bool IAdxlTransportI2C :: write(int addr, const char* d,int len){
         i2c.writeByte(d[i]);
     }
     i2c.sendStop();
+    return true;
 }
 
 bool IAdxlTransportI2C :: read(int addr, char* d,int len){
@@ -29,11 +29,10 @@ bool IAdxlTransportI2C :: read(int addr, char* d,int len){
     i2c.writeAddrRead(ADX345_I2C_ADDR);
     for(int i = 0; i < len ; i++){
         if(i==len-1)
-            i2c.readByte(d[i],false);
+            i2c.readByte(d[i],0);   //NACK
         else
-            i2c.readByte(d[i],true);
+            i2c.readByte(d[i],1);   //ACk
     }
     i2c.sendStop();
+    return true;
 }
-
-

@@ -6,6 +6,9 @@ class IAdxlTransportSpi : public IAdxlTransport{
     void init();
     bool read(int addr, char* d,int length);
     bool write(int addr, const char* d,int length);
+    char cmdBuilder(char addr, bool rw, bool mb);
+
+
 };
 
 #endif

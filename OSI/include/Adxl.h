@@ -9,10 +9,16 @@ public :
         Adxl(IAdxlTransport* _transport){
             transport = _transport;
         }
-        bool isConnected();
-        void start();
-        void stop();
-        void readData();
+        void init();
+
+        bool isConnected();     //checks deviceID
+        void startMeasure();
+        void stopMeasure();
+
+        void readData();        //adds values to the buffer
+        int getX();             //returns coords
+        int getY();             //returns coords
+        int getZ();             //returns coords
 };
 
 

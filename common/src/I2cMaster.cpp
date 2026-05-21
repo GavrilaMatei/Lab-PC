@@ -29,9 +29,9 @@ void I2cMaster::_readByte(char& data,bool ack) {
     // TODO: 2. read 1 byte from I2C
     // send command to read byte
     if(ack)
-        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
+        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);      //transmit ACK
     else
-        TWCR = (1<<TWINT) | (1<<TWEN);
+        TWCR = (1<<TWINT) | (1<<TWEN);                  //transmit NACK
     // wait for ack or nack
     while (!(TWCR & (1<<TWINT)));
     // read byte

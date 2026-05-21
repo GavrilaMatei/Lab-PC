@@ -10,8 +10,8 @@
  DIR    msb first 
 
  13 sclk-clk
+12 miso-sdo
  11 mosi-sda
- 12 miso-sdo
  7 cs-cs
 
  5v  - hv-gnd

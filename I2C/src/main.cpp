@@ -40,7 +40,7 @@ void setup() {
     wire.writeByte(0x00);
     wire.sendStart();
     wire.writeAddrRead(ADX345_I2C_ADDR);
-    wire.readByte(data,false);
+    wire.readByte(data,false); //send NACK
     wire.sendStop();
     uart.writeIntegerNumber(data,16);
     // expected response 0xE5
@@ -65,12 +65,12 @@ void ADXL_readData() {
     wire.writeByte(0x32);
     wire.sendStart();
     wire.writeAddrRead(ADX345_I2C_ADDR);
-    wire.readByte(x0,true);
-    wire.readByte(x1,true);
-    wire.readByte(y0,true);
-    wire.readByte(y1,true);
-    wire.readByte(z0,true);
-    wire.readByte(z1,false);
+    wire.readByte(x0,true);     //ack
+    wire.readByte(x1,true);     //ack
+    wire.readByte(y0,true);     //ack
+    wire.readByte(y1,true);     //ack
+    wire.readByte(z0,true);     //ack
+    wire.readByte(z1,false);    //Nack
     wire.sendStop();
     
     int x = ((int)x1<<8)|x0;
